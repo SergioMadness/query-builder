@@ -36,7 +36,6 @@ Alternatively you can add the following to the `require` section in your `compos
 "professionalweb/query-builder": "dev-master"
 ```
 Run `composer update` afterwards.
-```
 
 
 
