@@ -71,7 +71,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
             if ($result != '') {
                 $result.=' ';
             }
-            $result.=self::$joinTypes[$joinInfo['jointType']].' '.$joinInfo['table'].' ON '.$joinInfo['condition'];
+            $result.=self::$joinTypes[$joinInfo['jointType']].' "'.$joinInfo['table'].'" ON '.$joinInfo['condition'];
         }
 
         return $result;
@@ -143,12 +143,12 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
     {
         $result = '';
 
-        $having = $this->getConditionBuilder()
+        $where = $this->getConditionBuilder()
             ->setCondition($this->getWhere())
             ->generate();
 
-        if ($having != '') {
-            $result.='WHERE '.$having;
+        if ($where != '') {
+            $result.='WHERE '.$where;
         }
 
         return $result;

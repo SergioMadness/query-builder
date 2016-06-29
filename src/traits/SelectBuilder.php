@@ -212,6 +212,18 @@ trait SelectBuilder
     }
 
     /**
+     * Set joins
+     *
+     * @param array $joins
+     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     */
+    public function setJoins(array $joins)
+    {
+        $this->join = $joins;
+        return $this;
+    }
+
+    /**
      * Get join
      *
      * @return array
