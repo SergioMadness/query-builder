@@ -4,6 +4,12 @@ namespace pwf\components\querybuilder\abstraction;
 
 abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\SelectBuilder
 {
+    /**
+     * FOR UPDATE mode
+     *
+     * @var bool
+     */
+    private $forUpdate = false;
 
     /**
      * Build select part
@@ -69,6 +75,28 @@ abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\
     protected abstract function buildOrder();
 
     /**
+     * Set 'for update' mode
+     *
+     * @param bool $flag
+     * @return \pwf\components\querybuilder\abstraction\SelectBuilder
+     */
+    public function forUpdate($flag = true)
+    {
+        $this->forUpdate = $flag;
+        return $this;
+    }
+
+    /**
+     * Get flag 'for update'
+     *
+     * @return bool
+     */
+    public function isForUpdate()
+    {
+        return $this->forUpdate;
+    }
+
+    /**
      * Generate query
      *
      * @return string
@@ -108,6 +136,9 @@ abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\
         }
         if ($order != '') {
             $result.=' '.$order;
+        }
+        if ($this->isForUpdate()) {
+            $result.=' FOR UPDATE';
         }
 
         return $result;
