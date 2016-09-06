@@ -125,6 +125,9 @@ abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\
         if ($group != '') {
             $result.=' '.$group;
         }
+        if ($order != '') {
+            $result.=' '.$order;
+        }
         if ($limit != '') {
             $result.=' '.$limit;
         }
@@ -134,9 +137,7 @@ abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\
         if ($union != '') {
             $result = '('.$result.')'.$union;
         }
-        if ($order != '') {
-            $result.=' '.$order;
-        }
+        
         if ($this->isForUpdate()) {
             $result.=' FOR UPDATE';
         }
