@@ -115,31 +115,31 @@ abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\
         $union  = $this->buildUnion();
         $order  = $this->buildOrder();
 
-        $result.='SELECT '.$select.' FROM "'.$table.'"';
+        $result .= 'SELECT '.$select.' FROM '.$table;
         if ($join != '') {
-            $result.=' '.$join;
+            $result .= ' '.$join;
         }
         if ($where != '') {
-            $result.=' '.$where;
+            $result .= ' '.$where;
         }
         if ($group != '') {
-            $result.=' '.$group;
+            $result .= ' '.$group;
         }
         if ($order != '') {
-            $result.=' '.$order;
+            $result .= ' '.$order;
         }
         if ($limit != '') {
-            $result.=' '.$limit;
+            $result .= ' '.$limit;
         }
         if ($having != '') {
-            $result.=' '.$having;
+            $result .= ' '.$having;
         }
         if ($union != '') {
             $result = '('.$result.')'.$union;
         }
-        
+
         if ($this->isForUpdate()) {
-            $result.=' FOR UPDATE';
+            $result .= ' FOR UPDATE';
         }
 
         return $result;

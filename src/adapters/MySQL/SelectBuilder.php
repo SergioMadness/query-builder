@@ -71,7 +71,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
             if ($result != '') {
                 $result.=' ';
             }
-            $result.=self::$joinTypes[$joinInfo['jointType']].' "'.$joinInfo['table'].'" ON '.$joinInfo['condition'];
+            $result.=self::$joinTypes[$joinInfo['jointType']].' '.$joinInfo['table'].' ON '.$joinInfo['condition'];
         }
 
         return $result;
