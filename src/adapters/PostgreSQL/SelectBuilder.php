@@ -8,6 +8,14 @@ class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBu
     /**
      * @inheritdoc
      */
+    protected function buildTable()
+    {
+        return '"'.$this->getTable().'"';
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function buildLimit()
     {
         $result = '';
@@ -15,11 +23,11 @@ class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBu
         $offset = $this->getOffset();
 
         if (($limit = $this->getLimit()) > 0) {
-            $result.='LIMIT '.$limit;
+            $result .= 'LIMIT '.$limit;
         }
         if (($offset = $this->getOffset()) > 0) {
-            $result.=' ';
-            $result.='OFFSET '.$offset;
+            $result .= ' ';
+            $result .= 'OFFSET '.$offset;
         }
 
         return $result;
