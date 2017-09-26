@@ -161,7 +161,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
      */
     public function getParams()
     {
-        return $this->getConditionBuilder()->getParams();
+        return array_values($this->getConditionBuilder()->getParams());
     }
 
     /**

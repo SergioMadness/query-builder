@@ -31,7 +31,7 @@ class ConditionBuilder extends \pwf\components\querybuilder\abstraction\Conditio
                     $this->setParams(array_merge($this->getParams(),
                             $conditions[1]->getParams()));
                 } else {
-                    $result = $conditions[0].'=:'.$conditions[0];
+                    $result = $conditions[0].'=?';//.$conditions[0];
                     $this->addParam($conditions[0], $conditions[1]);
                 }
                 break;

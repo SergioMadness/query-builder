@@ -1,13 +1,13 @@
 <?php
 
-class MySQLUpdateBuilderTest extends \PHPUnit_Framework_TestCase
+class PostgreSQLUpdateBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public static $stubBuilder;
     public static $stubConditionBuilder;
 
     protected function setUp()
     {
-        self::$stubBuilder          = \Codeception\Util\Stub::construct('\pwf\components\querybuilder\adapters\MySQL\UpdateBuilder');
+        self::$stubBuilder          = \Codeception\Util\Stub::construct('\pwf\components\querybuilder\adapters\PostgreSQL\UpdateBuilder');
         self::$stubConditionBuilder = \Codeception\Util\Stub::construct('\pwf\components\querybuilder\adapters\SQL\ConditionBuilder');
         self::$stubBuilder->setConditionBuilder(self::$stubConditionBuilder);
     }
@@ -28,7 +28,7 @@ class MySQLUpdateBuilderTest extends \PHPUnit_Framework_TestCase
         $conditions = [
             'condition1' => 1
         ];
-        $expected   = 'UPDATE table_test SET PARAM1=?, PARAM2=?, PARAM3=? WHERE condition1=?';
+        $expected   = 'UPDATE "table_test" SET PARAM1=?, PARAM2=?, PARAM3=? WHERE condition1=?';
 
         self::$stubBuilder->table('table_test')->setParams($params)->where($conditions);
 

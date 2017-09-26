@@ -31,10 +31,10 @@ abstract class DeleteBuilder implements \pwf\components\querybuilder\interfaces\
         $table = $this->buildTable();
         $where = $this->buildWhere();
 
-        $result.='DELETE FROM '.$table;
+        $result .= 'DELETE FROM '.$table;
 
         if ($where != '') {
-            $result.=' '.$where;
+            $result .= ' '.$where;
         }
 
         return $result;

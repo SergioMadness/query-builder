@@ -23,7 +23,7 @@ class UpdateBuilder extends \pwf\components\querybuilder\abstraction\UpdateBuild
             ->generate();
 
         if ($where != '') {
-            $result.='WHERE '.$where;
+            $result .= 'WHERE '.$where;
         }
 
         return $result;
@@ -39,9 +39,9 @@ class UpdateBuilder extends \pwf\components\querybuilder\abstraction\UpdateBuild
         $fields = array_keys($this->parentGetParams());
         foreach ($fields as $value) {
             if ($result != '') {
-                $result.=', ';
+                $result .= ', ';
             }
-            $result.=$value.'=:'.$value;
+            $result .= $value.'=?';
         }
 
         return $result;
@@ -60,7 +60,7 @@ class UpdateBuilder extends \pwf\components\querybuilder\abstraction\UpdateBuild
      */
     public function getParams()
     {
-        return array_merge($this->parentGetParams(),
-            $this->getConditionBuilder()->getParams());
+        return array_values(array_merge($this->parentGetParams(),
+                $this->getConditionBuilder()->getParams()));
     }
 }
