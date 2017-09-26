@@ -17,7 +17,7 @@ class InsertBuilder extends \pwf\components\querybuilder\abstraction\InsertBuild
         $placeholders = $fields;
         array_walk($placeholders,
             function(&$value) {
-            $value = ':'.$value;
+            $value = '?';
         });
         return '('.implode(', ', $fields).') VALUES ('.implode(', ',
                 $placeholders).')';

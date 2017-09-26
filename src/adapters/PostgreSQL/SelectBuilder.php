@@ -8,14 +8,6 @@ class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBu
     /**
      * @inheritdoc
      */
-    protected function buildTable()
-    {
-        return '"'.$this->getTable().'"';
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected function buildLimit()
     {
         $result = '';
@@ -31,5 +23,13 @@ class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBu
         }
 
         return $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function buildTable()
+    {
+        return '"'.$this->getTable().'"';
     }
 }

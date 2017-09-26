@@ -3,3 +3,7 @@ SQL query builder
 
 ## v0.1 08.06.2016
  - Separated from [PWF](https://github.com/SergioMadness/framework)
+
+## v0.5 26.09.2017
+ - Tests for Postgre
+ - Improve SQL builders
