@@ -6,7 +6,9 @@ class InsertBuilder extends \pwf\components\querybuilder\abstraction\InsertBuild
 {
 
     use \pwf\components\querybuilder\traits\QueryBuilder,
-        \pwf\components\querybuilder\traits\Parameterized;
+        \pwf\components\querybuilder\traits\Parameterized {
+        getParams as parentGetParams;
+    }
 
     /**
      * @inheritdoc
@@ -38,6 +40,6 @@ class InsertBuilder extends \pwf\components\querybuilder\abstraction\InsertBuild
      */
     public function getParams()
     {
-        return array_values($this->getParams());
+        return array_values($this->parentGetParams());
     }
 }
