@@ -15,7 +15,7 @@ class InsertBuilder extends \pwf\components\querybuilder\abstraction\InsertBuild
      */
     protected function buildFields()
     {
-        $fields       = array_keys($this->getParams());
+        $fields       = array_keys($this->parentGetParams());
         $placeholders = $fields;
         array_walk($placeholders,
             function(&$value) {
