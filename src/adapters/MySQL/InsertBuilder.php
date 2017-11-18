@@ -30,4 +30,14 @@ class InsertBuilder extends \pwf\components\querybuilder\abstraction\InsertBuild
     {
         return $this->getTable();
     }
+
+    /**
+     * Get params
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return array_values($this->getParams());
+    }
 }
