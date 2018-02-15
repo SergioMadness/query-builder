@@ -2,7 +2,9 @@
 
 namespace pwf\components\querybuilder\adapters\PostgreSQL;
 
-class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBuilder
+use pwf\components\querybuilder\adapters\MySQL\SelectBuilder as ASelectBuilder;
+
+class SelectBuilder extends ASelectBuilder
 {
 
     /**
@@ -12,14 +14,12 @@ class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBu
     {
         $result = '';
 
-        $offset = $this->getOffset();
-
         if (($limit = $this->getLimit()) > 0) {
-            $result .= 'LIMIT '.$limit;
+            $result .= 'LIMIT ' . $limit;
         }
         if (($offset = $this->getOffset()) > 0) {
             $result .= ' ';
-            $result .= 'OFFSET '.$offset;
+            $result .= 'OFFSET ' . $offset;
         }
 
         return $result;
@@ -30,6 +30,6 @@ class SelectBuilder extends \pwf\components\querybuilder\adapters\MySQL\SelectBu
      */
     protected function buildTable()
     {
-        return '"'.$this->getTable().'"';
+        return '"' . $this->getTable() . '"';
     }
 }

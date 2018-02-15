@@ -2,7 +2,9 @@
 
 namespace pwf\components\querybuilder\abstraction;
 
-abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\SelectBuilder
+use pwf\components\querybuilder\interfaces\SelectBuilder as ISelectBuilder;
+
+abstract class SelectBuilder implements ISelectBuilder
 {
     /**
      * FOR UPDATE mode
@@ -105,37 +107,37 @@ abstract class SelectBuilder implements \pwf\components\querybuilder\interfaces\
     {
         $result = '';
 
-        $table  = $this->buildTable();
+        $table = $this->buildTable();
         $select = $this->buildSelectFields();
-        $where  = $this->buildWhere();
+        $where = $this->buildWhere();
         $having = $this->buildHaving();
-        $join   = $this->buildJoin();
-        $limit  = $this->buildLimit();
-        $group  = $this->buildGroup();
-        $union  = $this->buildUnion();
-        $order  = $this->buildOrder();
+        $join = $this->buildJoin();
+        $limit = $this->buildLimit();
+        $group = $this->buildGroup();
+        $union = $this->buildUnion();
+        $order = $this->buildOrder();
 
-        $result .= 'SELECT '.$select.' FROM '.$table;
+        $result .= 'SELECT ' . $select . ' FROM ' . $table;
         if ($join != '') {
-            $result .= ' '.$join;
+            $result .= ' ' . $join;
         }
         if ($where != '') {
-            $result .= ' '.$where;
+            $result .= ' ' . $where;
         }
         if ($group != '') {
-            $result .= ' '.$group;
+            $result .= ' ' . $group;
         }
         if ($order != '') {
-            $result .= ' '.$order;
+            $result .= ' ' . $order;
         }
         if ($limit != '') {
-            $result .= ' '.$limit;
+            $result .= ' ' . $limit;
         }
         if ($having != '') {
-            $result .= ' '.$having;
+            $result .= ' ' . $having;
         }
         if ($union != '') {
-            $result = '('.$result.')'.$union;
+            $result = '(' . $result . ')' . $union;
         }
 
         if ($this->isForUpdate()) {

@@ -2,7 +2,9 @@
 
 namespace pwf\components\querybuilder\adapters\PostgreSQL;
 
-class UpdateBuilder extends \pwf\components\querybuilder\adapters\MySQL\UpdateBuilder
+use pwf\components\querybuilder\adapters\MySQL\UpdateBuilder as AUpdateBuilder;
+
+class UpdateBuilder extends AUpdateBuilder
 {
 
     /**
@@ -10,6 +12,6 @@ class UpdateBuilder extends \pwf\components\querybuilder\adapters\MySQL\UpdateBu
      */
     protected function buildTable()
     {
-        return '"'.$this->getTable().'"';
+        return '"' . $this->getTable() . '"';
     }
 }

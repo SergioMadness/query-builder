@@ -27,6 +27,6 @@ class MySQLInsertBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, self::$stubBuilder->generate());
 
-        $this->assertEquals($params, self::$stubBuilder->getParams());
+        $this->assertEquals(array_values($params), self::$stubBuilder->getParams());
     }
 }

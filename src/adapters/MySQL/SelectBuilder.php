@@ -2,11 +2,15 @@
 
 namespace pwf\components\querybuilder\adapters\MySQL;
 
-class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuilder
+use pwf\components\querybuilder\traits\Conditional;
+use pwf\components\querybuilder\traits\SelectBuilder as SelectBuilderTrait;
+use pwf\components\querybuilder\abstraction\SelectBuilder as ASelectBuilder;
+
+class SelectBuilder extends ASelectBuilder
 {
 
-    use \pwf\components\querybuilder\traits\SelectBuilder,
-        \pwf\components\querybuilder\traits\Conditional;
+    use SelectBuilderTrait,
+        Conditional;
     /**
      * Join types
      *
@@ -21,7 +25,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
 
     public function __construct()
     {
-        self::$joinTypes[self::JOIN_LEFT | self::JOIN_OUTER]  = 'LEFT OUTER JOIN';
+        self::$joinTypes[self::JOIN_LEFT | self::JOIN_OUTER] = 'LEFT OUTER JOIN';
         self::$joinTypes[self::JOIN_RIGHT | self::JOIN_OUTER] = 'RIGHT OUTER JOIN';
     }
 
@@ -33,8 +37,8 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
         $result = '';
 
         $group = $this->getGroup();
-        if (count($group) > 0) {
-            $result.='GROUP BY '.implode(', ', $group);
+        if (!empty($group)) {
+            $result .= 'GROUP BY ' . implode(', ', $group);
         }
 
         return $result;
@@ -52,7 +56,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
             ->generate();
 
         if ($having != '') {
-            $result.='HAVING '.$having;
+            $result .= 'HAVING ' . $having;
         }
 
         return $result;
@@ -69,9 +73,9 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
 
         foreach ($joins as $joinInfo) {
             if ($result != '') {
-                $result.=' ';
+                $result .= ' ';
             }
-            $result.=self::$joinTypes[$joinInfo['jointType']].' '.$joinInfo['table'].' ON '.$joinInfo['condition'];
+            $result .= self::$joinTypes[$joinInfo['jointType']] . ' ' . $joinInfo['table'] . ' ON ' . $joinInfo['condition'];
         }
 
         return $result;
@@ -85,13 +89,13 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
         $result = '';
 
         if (($offset = $this->getOffset()) > 0) {
-            $result.=$offset.', ';
+            $result .= $offset . ', ';
         }
         if (($limit = $this->getLimit()) > 0) {
-            $result.=$limit;
+            $result .= $limit;
         }
         if ($result != '') {
-            $result = 'LIMIT '.$result;
+            $result = 'LIMIT ' . $result;
         }
 
         return $result;
@@ -102,13 +106,13 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
      */
     protected function buildSelectFields()
     {
-        $fields = (array) $this->getSelect();
+        $fields = (array)$this->getSelect();
         array_walk($fields,
-            function(&$value, $key) {
-            if (is_string($key)) {
-                $value = $key.' AS '.$value;
-            }
-        });
+            function (&$value, $key) {
+                if (is_string($key)) {
+                    $value = $key . ' AS ' . $value;
+                }
+            });
         return implode(',', $fields);
     }
 
@@ -130,7 +134,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
         $union = $this->getUnion();
 
         foreach ($union as $query) {
-            $result.=' UNION ('.$query->generate().')';
+            $result .= ' UNION (' . $query->generate() . ')';
         }
 
         return $result;
@@ -148,7 +152,7 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
             ->generate();
 
         if ($where != '') {
-            $result.='WHERE '.$where;
+            $result .= 'WHERE ' . $where;
         }
 
         return $result;
@@ -166,22 +170,22 @@ class SelectBuilder extends \pwf\components\querybuilder\abstraction\SelectBuild
 
     /**
      * Build order
-     * 
+     *
      * @return string
      */
     protected function buildOrder()
     {
         $result = '';
 
-        $orders = (array) $this->getOrder();
+        $orders = (array)$this->getOrder();
         foreach ($orders as $field => $direction) {
             if ($result != '') {
-                $result.=',';
+                $result .= ',';
             }
-            $result.=$field.' '.($direction === SORT_DESC ? 'DESC' : 'ASC');
+            $result .= $field . ' ' . ($direction === SORT_DESC ? 'DESC' : 'ASC');
         }
         if ($result != '') {
-            $result = 'ORDER BY '.$result;
+            $result = 'ORDER BY ' . $result;
         }
 
         return $result;
