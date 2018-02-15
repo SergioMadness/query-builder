@@ -2,17 +2,12 @@
 
 namespace pwf\components\querybuilder\adapters\MySQL;
 
-use pwf\components\querybuilder\traits\Conditional;
-use pwf\components\querybuilder\traits\QueryBuilder;
-use pwf\components\querybuilder\traits\Parameterized;
-use pwf\components\querybuilder\abstraction\DeleteBuilder as ADeleteBuilder;
-
-class DeleteBuilder extends ADeleteBuilder
+class DeleteBuilder extends \pwf\components\querybuilder\abstraction\DeleteBuilder
 {
 
-    use QueryBuilder,
-        Conditional,
-        Parameterized;
+    use \pwf\components\querybuilder\traits\QueryBuilder,
+        \pwf\components\querybuilder\traits\Conditional,
+        \pwf\components\querybuilder\traits\Parameterized;
 
     /**
      * @inheritdoc
@@ -26,7 +21,7 @@ class DeleteBuilder extends ADeleteBuilder
             ->generate();
 
         if ($where != '') {
-            $result .= 'WHERE ' . $where;
+            $result.='WHERE '.$where;
         }
 
         return $result;

@@ -2,15 +2,11 @@
 
 namespace pwf\components\querybuilder\adapters\MySQL;
 
-use pwf\components\querybuilder\traits\QueryBuilder;
-use pwf\components\querybuilder\traits\Parameterized;
-use pwf\components\querybuilder\abstraction\InsertBuilder as AInsertBuilder;
-
-class InsertBuilder extends AInsertBuilder
+class InsertBuilder extends \pwf\components\querybuilder\abstraction\InsertBuilder
 {
 
-    use QueryBuilder,
-        Parameterized {
+    use \pwf\components\querybuilder\traits\QueryBuilder,
+        \pwf\components\querybuilder\traits\Parameterized {
         getParams as parentGetParams;
     }
 
@@ -19,14 +15,14 @@ class InsertBuilder extends AInsertBuilder
      */
     protected function buildFields()
     {
-        $fields = array_keys($this->parentGetParams());
+        $fields       = array_keys($this->parentGetParams());
         $placeholders = $fields;
         array_walk($placeholders,
-            function (&$value) {
-                $value = '?';
-            });
-        return '(' . implode(', ', $fields) . ') VALUES (' . implode(', ',
-                $placeholders) . ')';
+            function(&$value) {
+            $value = '?';
+        });
+        return '('.implode(', ', $fields).') VALUES ('.implode(', ',
+                $placeholders).')';
     }
 
     /**

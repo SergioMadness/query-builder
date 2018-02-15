@@ -2,9 +2,7 @@
 
 namespace pwf\components\querybuilder\abstraction;
 
-use pwf\components\querybuilder\interfaces\InsertBuilder as IInsertBuilder;
-
-abstract class InsertBuilder implements IInsertBuilder
+abstract class InsertBuilder implements \pwf\components\querybuilder\interfaces\InsertBuilder
 {
 
     /**
@@ -30,10 +28,10 @@ abstract class InsertBuilder implements IInsertBuilder
     {
         $result = '';
 
-        $table = $this->buildTable();
+        $table  = $this->buildTable();
         $fields = $this->buildFields();
 
-        $result .= 'INSERT INTO ' . $table . ' ' . $fields;
+        $result.='INSERT INTO '.$table.' '.$fields;
 
         return $result;
     }
