@@ -2,9 +2,7 @@
 
 namespace pwf\components\querybuilder\adapters\PostgreSQL;
 
-use pwf\components\querybuilder\adapters\MySQL\DeleteBuilder as ADeleteBuilder;
-
-class DeleteBuilder extends ADeleteBuilder
+class DeleteBuilder extends \pwf\components\querybuilder\adapters\MySQL\DeleteBuilder
 {
 
     /**
@@ -12,6 +10,6 @@ class DeleteBuilder extends ADeleteBuilder
      */
     protected function buildTable()
     {
-        return '"' . $this->getTable() . '"';
+        return '"'.$this->getTable().'"';
     }
 }

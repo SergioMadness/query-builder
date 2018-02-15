@@ -2,9 +2,7 @@
 
 namespace pwf\components\querybuilder\abstraction;
 
-use pwf\components\querybuilder\interfaces\DeleteBuilder as IDeleteBuilder;
-
-abstract class DeleteBuilder implements IDeleteBuilder
+abstract class DeleteBuilder implements \pwf\components\querybuilder\interfaces\DeleteBuilder
 {
 
     /**
@@ -33,10 +31,10 @@ abstract class DeleteBuilder implements IDeleteBuilder
         $table = $this->buildTable();
         $where = $this->buildWhere();
 
-        $result .= 'DELETE FROM ' . $table;
+        $result .= 'DELETE FROM '.$table;
 
         if ($where != '') {
-            $result .= ' ' . $where;
+            $result .= ' '.$where;
         }
 
         return $result;

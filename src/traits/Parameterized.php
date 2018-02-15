@@ -15,7 +15,7 @@ trait Parameterized
      * Set params
      *
      * @param array $params
-     * @return $this
+     * @return \pwf\components\querybuilder\interfaces\ConditionBuilder
      */
     public function setParams(array $params)
     {
@@ -28,7 +28,7 @@ trait Parameterized
      *
      * @param string $name
      * @param mixed $value
-     * @return $this
+     * @return \pwf\components\querybuilder\interfaces\ConditionBuilder
      */
     public function addParam($name, $value)
     {

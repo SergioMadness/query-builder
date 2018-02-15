@@ -2,17 +2,12 @@
 
 namespace pwf\components\querybuilder\adapters\MySQL;
 
-use pwf\components\querybuilder\traits\Conditional;
-use pwf\components\querybuilder\traits\QueryBuilder;
-use pwf\components\querybuilder\traits\Parameterized;
-use pwf\components\querybuilder\abstraction\UpdateBuilder as AUpdateBuilder;
-
-class UpdateBuilder extends AUpdateBuilder
+class UpdateBuilder extends \pwf\components\querybuilder\abstraction\UpdateBuilder
 {
 
-    use QueryBuilder,
-        Conditional,
-        Parameterized {
+    use \pwf\components\querybuilder\traits\QueryBuilder,
+        \pwf\components\querybuilder\traits\Conditional,
+        \pwf\components\querybuilder\traits\Parameterized {
         getParams as parentGetParams;
     }
 
@@ -28,7 +23,7 @@ class UpdateBuilder extends AUpdateBuilder
             ->generate();
 
         if ($where != '') {
-            $result .= 'WHERE ' . $where;
+            $result .= 'WHERE '.$where;
         }
 
         return $result;
@@ -46,7 +41,7 @@ class UpdateBuilder extends AUpdateBuilder
             if ($result != '') {
                 $result .= ', ';
             }
-            $result .= $value . '=?';
+            $result .= $value.'=?';
         }
 
         return $result;
@@ -66,6 +61,6 @@ class UpdateBuilder extends AUpdateBuilder
     public function getParams()
     {
         return array_values(array_merge($this->parentGetParams(),
-            $this->getConditionBuilder()->getParams()));
+                $this->getConditionBuilder()->getParams()));
     }
 }

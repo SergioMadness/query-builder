@@ -2,9 +2,7 @@
 
 namespace pwf\components\querybuilder\abstraction;
 
-use pwf\components\querybuilder\interfaces\InsertBuilder as IInsertBuilder;
-
-abstract class UpdateBuilder extends InsertBuilder implements IInsertBuilder
+abstract class UpdateBuilder extends InsertBuilder implements \pwf\components\querybuilder\interfaces\InsertBuilder
 {
 
     /**
@@ -23,14 +21,14 @@ abstract class UpdateBuilder extends InsertBuilder implements IInsertBuilder
     {
         $result = '';
 
-        $table = $this->buildTable();
+        $table  = $this->buildTable();
         $fields = $this->buildFields();
-        $where = $this->buildWhere();
+        $where  = $this->buildWhere();
 
-        $result .= 'UPDATE ' . $table . ' SET ' . $fields;
+        $result.='UPDATE '.$table.' SET '.$fields;
 
         if ($where != '') {
-            $result .= ' ' . $where;
+            $result.=' '.$where;
         }
 
         return $result;
