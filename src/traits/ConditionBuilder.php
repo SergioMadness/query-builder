@@ -17,7 +17,7 @@ trait ConditionBuilder
      * Set params
      *
      * @param array $condition
-     * @return \pwf\components\querybuilder\interfaces\ConditionBuilder
+     * @return $this
      */
     public function setCondition(array $condition)
     {

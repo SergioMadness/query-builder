@@ -2,7 +2,9 @@
 
 namespace pwf\components\querybuilder\adapters\PostgreSQL;
 
-class InsertBuilder extends \pwf\components\querybuilder\adapters\MySQL\InsertBuilder
+use pwf\components\querybuilder\adapters\MySQL\InsertBuilder as AInsertBuilder;
+
+class InsertBuilder extends AInsertBuilder
 {
 
     /**
@@ -10,6 +12,6 @@ class InsertBuilder extends \pwf\components\querybuilder\adapters\MySQL\InsertBu
      */
     protected function buildTable()
     {
-        return '"'.$this->getTable().'"';
+        return '"' . $this->getTable() . '"';
     }
 }

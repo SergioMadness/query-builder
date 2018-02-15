@@ -2,10 +2,14 @@
 
 namespace pwf\components\querybuilder\traits;
 
+use pwf\components\querybuilder\interfaces\QueryBuilder;
+use pwf\components\querybuilder\traits\QueryBuilder as QueryBuilderTrait;
+
 trait SelectBuilder
 {
 
-    use QueryBuilder;
+    use QueryBuilderTrait;
+
     /**
      * Select fields
      *
@@ -49,27 +53,27 @@ trait SelectBuilder
     private $union = [];
 
     /**
-     * Groupping
+     * Grouping
      *
      * @var array
      */
-    private $group;
+    private $group = [];
 
     /**
      * Order
      *
      * @var array
      */
-    private $order;
+    private $order = [];
 
     /**
      *
      * @param mixed $group
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function group($group)
     {
-        $this->group = (array) $group;
+        $this->group = (array)$group;
         return $this;
     }
 
@@ -87,7 +91,7 @@ trait SelectBuilder
      * Set limit
      *
      * @param int $limit
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function limit($limit)
     {
@@ -109,7 +113,7 @@ trait SelectBuilder
      * Set offset
      *
      * @param int $offset
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function offset($offset)
     {
@@ -131,11 +135,11 @@ trait SelectBuilder
      * Set having condition
      *
      * @param mixed $condition
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function having($condition)
     {
-        $this->having = array_merge($this->having, (array) $condition);
+        $this->having = array_merge($this->having, (array)$condition);
         return $this;
     }
 
@@ -153,7 +157,7 @@ trait SelectBuilder
      * Set select fields
      *
      * @param array $fields
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function select(array $fields)
     {
@@ -174,10 +178,10 @@ trait SelectBuilder
     /**
      * Add union
      *
-     * @param \pwf\components\querybuilder\interfaces\QueryBuilder $query
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @param QueryBuilder $query
+     * @return $this
      */
-    public function union(\pwf\components\querybuilder\interfaces\QueryBuilder $query)
+    public function union(QueryBuilder $query)
     {
         $this->union[] = $query;
         return $this;
@@ -199,7 +203,7 @@ trait SelectBuilder
      * @param string $table
      * @param mixed $condition
      * @param int $joinType
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function join($table, $condition, $joinType = self::JOIN_LEFT)
     {
@@ -215,7 +219,7 @@ trait SelectBuilder
      * Set joins
      *
      * @param array $joins
-     * @return \pwf\components\querybuilder\interfaces\SelectBuilder
+     * @return $this
      */
     public function setJoins(array $joins)
     {

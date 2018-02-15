@@ -2,45 +2,48 @@
 
 namespace pwf\components\querybuilder\adapters\SQL;
 
-class ConditionBuilder extends \pwf\components\querybuilder\abstraction\ConditionBuilder
+use pwf\components\querybuilder\interfaces\SelectBuilder;
+use pwf\components\querybuilder\traits\ConditionBuilder as ConditionBuilderTrait;
+use pwf\components\querybuilder\abstraction\ConditionBuilder as AConditionBuilder;
+
+class ConditionBuilder extends AConditionBuilder
 {
 
-    use \pwf\components\querybuilder\traits\ConditionBuilder;
+    use ConditionBuilderTrait;
 
     /**
      * Array to string
      *
      * @param array $conditions
      * @return string
+     * @throws \Exception
      */
     protected function prepareArray(array $conditions)
     {
-        $result = '';
-
         switch (count($conditions)) {
             case 1:
                 $result = $conditions[0];
                 break;
             case 2:
                 if (is_array($conditions[1])) {
-                    $result = $conditions[0].' IN ('.implode(',', $conditions[1]).')';
+                    $result = $conditions[0] . ' IN (' . implode(',', $conditions[1]) . ')';
                 } elseif (is_null($conditions[1])) {
-                    $result = $conditions[0].' IS NULL';
-                } elseif ($conditions[1] instanceof \pwf\components\querybuilder\interfaces\SelectBuilder) {
-                    $result = $conditions[0].' IN ('.$conditions[1]->generate().')';
+                    $result = $conditions[0] . ' IS NULL';
+                } elseif ($conditions[1] instanceof SelectBuilder) {
+                    $result = $conditions[0] . ' IN (' . $conditions[1]->generate() . ')';
                     $this->setParams(array_merge($this->getParams(),
-                            $conditions[1]->getParams()));
+                        $conditions[1]->getParams()));
                 } else {
-                    $result = $conditions[0].'=?';//.$conditions[0];
+                    $result = $conditions[0] . '=?';//.$conditions[0];
                     $this->addParam($conditions[0], $conditions[1]);
                 }
                 break;
             case 3:
-                $left   = is_array($conditions[1]) ? $this->prepareConditions($conditions[1])
-                        : $conditions[1];
-                $right  = is_array($conditions[2]) ? $this->prepareConditions($conditions[2])
-                        : $conditions[2];
-                $result = '(('.$left.') '.$conditions[0].' ('.$right.'))';
+                $left = is_array($conditions[1]) ? $this->prepareConditions($conditions[1])
+                    : $conditions[1];
+                $right = is_array($conditions[2]) ? $this->prepareConditions($conditions[2])
+                    : $conditions[2];
+                $result = '((' . $left . ') ' . $conditions[0] . ' (' . $right . '))';
                 break;
             default:
                 throw new \Exception('Wrong condition configuration');
@@ -57,12 +60,12 @@ class ConditionBuilder extends \pwf\components\querybuilder\abstraction\Conditio
             if (is_string($key)) {
                 $value = [$key, $value];
             }
-            $condition = $this->prepareArray((array) $value);
+            $condition = $this->prepareArray((array)$value);
 
             if ($result != '') {
-                $result.=' AND ';
+                $result .= ' AND ';
             }
-            $result.=$condition;
+            $result .= $condition;
         }
 
         return $result;

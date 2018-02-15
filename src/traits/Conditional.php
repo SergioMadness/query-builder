@@ -44,11 +44,11 @@ trait Conditional
      * Set where condition
      *
      * @param array $condition
-     * @return \pwf\components\querybuilder\interfaces\ConditionBuilder
+     * @return $this
      */
     public function where(array $condition)
     {
-        $this->where = array_merge($this->where, (array) $condition);
+        $this->where = array_merge($this->where, (array)$condition);
         return $this;
     }
 
